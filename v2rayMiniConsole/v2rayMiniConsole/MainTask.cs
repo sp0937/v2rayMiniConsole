@@ -243,7 +243,6 @@ namespace v2rayMiniConsole
             var profileItem = LazyConfig.Instance.GetProfileItem(indexId);
             if (profileItem == null)  // 当订阅更新时，有新服务器就会触发这个，不用打印了
             {
-                //_noticeHandler?.SendMessage("profileItem is null while profileExItem not in SetTestResult", true);
                 return;
             }
             if (serverFailure) // 若测速或测延时失败，当failures >= 10时删除此服务器记录，否则failures自增
