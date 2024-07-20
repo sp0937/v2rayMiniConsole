@@ -1,0 +1,19 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/v2rayMiniConsole/.vs/
+/v2rayMiniConsole/v2rayMiniConsole/bin/Debug/app.publish
+/v2rayMiniConsole/v2rayMiniConsole/bin/Debug
+/v2rayMiniConsole/v2rayMiniConsole/bin/Release
+/v2rayMiniConsole/v2rayMiniConsole/obj/
+/v2rayMiniConsole/.vs/v2rayMiniConsole/DesignTimeBuild
+/v2rayMiniConsole/packages
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+/v2rayMiniConsole/v2rayUpgrade/bin/Debug
+/v2rayMiniConsole/v2rayUpgrade/bin/Release
+/v2rayMiniConsole/v2rayUpgrade/obj/
+*.user
+/.vs/v2rayMiniConsole
