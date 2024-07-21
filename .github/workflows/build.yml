@@ -19,6 +19,8 @@ jobs:
     - name: Build
       run:  cd v2rayMiniConsole && 
         .\build.ps1   
+    - name: check
+      run: ls v2rayMiniConsole
 
     - name: Create Release
       id: create_release
