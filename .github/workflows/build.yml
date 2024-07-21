@@ -44,6 +44,6 @@ jobs:
           ## 更新日志
           * 这是 GitHub Actions 自动化部署，更新日志应该很快会手动更新
         files: |
-          v2rayMiniConsole/v2rayMiniConsole.zip # 指定要上传的文件路径
+          .\v2rayMiniConsole\v2rayMiniConsole.zip # 指定要上传的文件路径
         draft: false
         prerelease: false 
