@@ -1,6 +1,7 @@
 # v2rayMiniConsole
 This console tool is build on top of [v2rayN](https://github.com/2dust/v2rayN), it automized part of speed test process, trying to keep connected to the maximum extent.
 The idea of this tool is that proven-functioning free nodes are likely to keep functioning, so all speed-test-passed nodes are stored in database for further use. And a strategy is applied to manage these nodes, they will keep a record in the database until they have proven themself to be no longer useful.
+
 The tool test the current proxy server for network delay every 30 seconds, if found off, the tool automatically switches proxy, it will keep switching among nodes stored in database until it found a functioning one. It could keep you connected as long as you have a not-so-bad subscription. But it is not suitable for those who need to keep connected all the time without a second off, for when it begin to switch proxies, it usually takes some time to found the next available one.
 
 ## How to use
