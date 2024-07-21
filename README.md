@@ -8,7 +8,8 @@ The tool test the current proxy server for network delay every 30 seconds, if fo
 - Later I will publish releases for direct use.
 - After starting the tool, add a valid subscription to start the tool if there are no subscriptions yet in your database. Use "add_subscription" to do that, it is poor UI but tested working. After having a valid subscription, wait for about less than 1 min, the tool will automatically update subscription, speed test, and store valid nodes into database, and surely picking the fastest node as the proxy server.
 - Here is a picture of the tool. It uses title blank as status bar, showing important running status informations, such as current connecting server, server delay, current proxy mode...
-  ![image](https://github.com/user-attachments/assets/e093fb92-37e5-4c90-a050-538c880688d7)
+ ![image](https://github.com/user-attachments/assets/ffa05fe3-5bc9-4fee-88e8-51acceefb5cf)
+
 
 ## Requirements  
 - [Microsoft .NET 8.0 Desktop Runtime ](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
