@@ -15,14 +15,6 @@ dotnet publish `
 	-p:PublishSingleFile=true `
 	-o $OutputPath
 
-dotnet publish `
-	.\v2rayUpgrade\v2rayUpgrade.csproj `
-	-c Release `
-	--self-contained false `
-	-p:PublishReadyToRun=true `
-	-p:PublishSingleFile=true `
-	-o $OutputPath
-
 if ( -Not $? ) {
 	exit $lastExitCode
 	}
