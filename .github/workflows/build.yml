@@ -44,6 +44,6 @@ jobs:
           ## 更新日志
           * 这是 GitHub Actions 自动化部署，更新日志应该很快会手动更新
         files: |
-          .\v2rayMiniConsole\v2rayMiniConsole.zip
+          .\v2rayMiniConsole\v2rayMiniConsole.zip\v2rayMiniConsole.zip
         draft: false
         prerelease: false 
