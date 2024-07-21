@@ -18,22 +18,7 @@ jobs:
       
     - name: Build
       run:  cd v2rayMiniConsole && 
-        .\build.ps1
-   
-
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: v2rayMiniconsole
-    #     path: |
-    #       .\v2rayMiniConsole\v2rayMiniConsole.zip
-          
-    # - name: Download build artifacts
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name: v2rayMiniconsole
-    #     path: |
-    #       .\v2rayMiniConsole\v2rayMiniConsole.zip
+        .\build.ps1   
 
     - name: Create Release
       id: create_release
@@ -51,6 +36,6 @@ jobs:
           ## 更新日志
           * 这是 GitHub Actions 自动化部署，更新日志应该很快会手动更新
         files: |
-          .\v2rayMiniConsole.zip
+          .\v2rayMiniConsole\v2rayMiniConsole.zip
         draft: false
         prerelease: false 
