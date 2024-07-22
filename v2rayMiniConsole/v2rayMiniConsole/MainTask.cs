@@ -193,8 +193,10 @@ namespace v2rayMiniConsole
             {
                 return;
             }
+            // 先把待测速列表去重，再与数据库比较去重
+            var dedupedItems = RunningObjects.Instance.ProfileItems.ToList().Distinct(new ConfigHandler.ProfileComparer()).ToList();
             RunningObjects.Instance.ProfileItems = new System.Collections.Concurrent.ConcurrentBag<ProfileItem>(
-                RemoveDuplicateServer(RunningObjects.Instance.ProfileItems.ToList()));
+                RemoveDuplicateServer(dedupedItems));
             new SpeedtestHandler(_config, _coreHandler, RunningObjects.Instance.ProfileItems.ToList(), ESpeedActionType.Mixedtest, UpdateSpeedtestHandler);
         }
 
@@ -294,7 +296,8 @@ namespace v2rayMiniConsole
 
             // 新的可用服务器入库
             var availableProfileItems = RunningObjects.Instance.ProfileItems.Where(item => availableProfileExItems.Select(exItem => exItem.indexId).Contains(item.indexId)).ToList();
-            //availableProfileItems = RemoveDuplicateServer(availableProfileItems);git
+            
+            //availableProfileItems = RemoveDuplicateServer(availableProfileItems);
             SQLiteHelper.Instance.InsertAll(availableProfileItems);
             
             _noticeHandler.SendMessage("saved availableProfileItems", true);

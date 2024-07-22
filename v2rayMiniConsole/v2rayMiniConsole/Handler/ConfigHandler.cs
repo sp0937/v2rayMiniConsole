@@ -17,6 +17,32 @@ namespace v2rayN.Handler
         private static string configRes = Global.ConfigFileName;
         private static readonly object objLock = new();
 
+        public class ProfileComparer: IEqualityComparer<ProfileItem>
+        {
+            public bool Equals(ProfileItem x, ProfileItem y)
+            {
+                // 如果两个对象都是null，或者它们的a和b属性都相等，则返回true
+                if (ReferenceEquals(x, y)) return true;
+                if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
+                    return false;
+
+                return CompareProfileItem(x, y, false);
+            }
+
+            public int GetHashCode(ProfileItem obj)
+            {
+                // 使用a和b的值来计算哈希码
+                // 注意：哈希码应该仅基于用于Equals方法的属性
+                unchecked // Overflow is fine, just wrap
+                {
+                    int hash = 17;
+                    hash = hash * 23 + obj.address.GetHashCode();
+                    hash = hash * 23 + obj.id.GetHashCode();
+                    return hash;
+                }
+            }
+        };
+
         #region ConfigHandler
 
         /// <summary>
