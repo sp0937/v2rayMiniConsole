@@ -156,139 +156,123 @@ namespace v2rayN.Handler
             CheckUpdateAsync(type, preRelease);
         }
 
-        public void UpdateSubscriptionProcess(Config config, string subId, bool blProxy, Action<bool, string> update)
+        public async void UpdateSubscriptionProcess(Config config, SubItem item, bool blProxy, Action<bool, string> update)
         {
             _config = config;
             _updateFunc = update;
 
             _updateFunc(false, ResUI.MsgUpdateSubscriptionStart);
-            var subItem = LazyConfig.Instance.SubItems().OrderBy(t => t.sort).ToList();
-
-            if (subItem == null || subItem.Count <= 0)
+            
+            string id = item.id.TrimEx();
+            string url = item.url.TrimEx();
+            string userAgent = item.userAgent.TrimEx();
+            string hashCode = $"{item.remarks}->";
+            if (Utils.IsNullOrEmpty(id) || Utils.IsNullOrEmpty(url))
             {
-                _updateFunc(false, ResUI.MsgNoValidSubscription);
+                _updateFunc(false, $"{hashCode}{ResUI.MsgNoValidSubscription}");
+                return;
+            }
+            if (!url.StartsWith(Global.HttpsProtocol) && !url.StartsWith(Global.HttpProtocol))
+            {
+                return;
+            }
+            if (item.enabled == false)
+            {
+                _updateFunc(false, $"{hashCode}{ResUI.MsgSkipSubscriptionUpdate}");
                 return;
             }
 
-            Task.Run(async () =>
+            var downloadHandle = new DownloadHandle();
+            downloadHandle.Error += (sender2, args) =>
             {
-                
-                foreach (var item in subItem)
+                _updateFunc(false, $"{hashCode}{args.GetException().Message}");
+            };
+
+            _updateFunc(false, $"{hashCode}{ResUI.MsgStartGettingSubscriptions}");
+
+            //one url
+            url = Utils.GetPunycode(url);
+            //convert
+            if (!Utils.IsNullOrEmpty(item.convertTarget))
+            {
+                var subConvertUrl = Utils.IsNullOrEmpty(config.constItem.subConvertUrl) ? Global.SubConvertUrls.FirstOrDefault() : config.constItem.subConvertUrl;
+                url = string.Format(subConvertUrl!, Utils.UrlEncode(url));
+                if (!url.Contains("target="))
                 {
-                    string id = item.id.TrimEx();
-                    string url = item.url.TrimEx();
-                    string userAgent = item.userAgent.TrimEx();
-                    string hashCode = $"{item.remarks}->";
-                    if (Utils.IsNullOrEmpty(id) || Utils.IsNullOrEmpty(url) || (!Utils.IsNullOrEmpty(subId) && item.id != subId))
-                    {
-                        _updateFunc(false, $"{hashCode}{ResUI.MsgNoValidSubscription}");
-                        continue;
-                    }
-                    if (!url.StartsWith(Global.HttpsProtocol) && !url.StartsWith(Global.HttpProtocol))
-                    {
-                        continue;
-                    }
-                    if (item.enabled == false)
-                    {
-                        _updateFunc(false, $"{hashCode}{ResUI.MsgSkipSubscriptionUpdate}");
-                        continue;
-                    }
+                    url += string.Format("&target={0}", item.convertTarget);
+                }
+                if (!url.Contains("config="))
+                {
+                    url += string.Format("&config={0}", Global.SubConvertConfig.FirstOrDefault());
+                }
+            }
+            var result = await downloadHandle.TryDownloadString(url, blProxy, userAgent);
+            if (blProxy && Utils.IsNullOrEmpty(result))
+            {
+                result = await downloadHandle.TryDownloadString(url, false, userAgent);
+            }
 
-                    var downloadHandle = new DownloadHandle();
-                    downloadHandle.Error += (sender2, args) =>
-                    {
-                        _updateFunc(false, $"{hashCode}{args.GetException().Message}");
-                    };
-
-                    _updateFunc(false, $"{hashCode}{ResUI.MsgStartGettingSubscriptions}");
-
-                    //one url
-                    url = Utils.GetPunycode(url);
-                    //convert
-                    if (!Utils.IsNullOrEmpty(item.convertTarget))
-                    {
-                        var subConvertUrl = Utils.IsNullOrEmpty(config.constItem.subConvertUrl) ? Global.SubConvertUrls.FirstOrDefault() : config.constItem.subConvertUrl;
-                        url = string.Format(subConvertUrl!, Utils.UrlEncode(url));
-                        if (!url.Contains("target="))
-                        {
-                            url += string.Format("&target={0}", item.convertTarget);
-                        }
-                        if (!url.Contains("config="))
-                        {
-                            url += string.Format("&config={0}", Global.SubConvertConfig.FirstOrDefault());
-                        }
-                    }
-                    var result = await downloadHandle.TryDownloadString(url, blProxy, userAgent);
-                    if (blProxy && Utils.IsNullOrEmpty(result))
-                    {
-                        result = await downloadHandle.TryDownloadString(url, false, userAgent);
-                    }
-
-                    //more url
-                    if (Utils.IsNullOrEmpty(item.convertTarget) && !Utils.IsNullOrEmpty(item.moreUrl.TrimEx()))
-                    {
-                        if (!Utils.IsNullOrEmpty(result) && Utils.IsBase64String(result!))
-                        {
-                            result = Utils.Base64Decode(result);
-                        }
-
-                        var lstUrl = new List<string>(item.moreUrl.TrimEx().Split(","));
-                        foreach (var it in lstUrl)
-                        {
-                            var url2 = Utils.GetPunycode(it);
-                            if (Utils.IsNullOrEmpty(url2))
-                            {
-                                continue;
-                            }
-
-                            var result2 = await downloadHandle.TryDownloadString(url2, blProxy, userAgent);
-                            if (blProxy && Utils.IsNullOrEmpty(result2))
-                            {
-                                result2 = await downloadHandle.TryDownloadString(url2, false, userAgent);
-                            }
-                            if (!Utils.IsNullOrEmpty(result2))
-                            {
-                                if (Utils.IsBase64String(result2!))
-                                {
-                                    result += Utils.Base64Decode(result2);
-                                }
-                                else
-                                {
-                                    result += result2;
-                                }
-                            }
-                        }
-                    }
-
-                    if (Utils.IsNullOrEmpty(result))
-                    {
-                        _updateFunc(false, $"{hashCode}{ResUI.MsgSubscriptionDecodingFailed}");
-                    }
-                    else
-                    {
-                        _updateFunc(false, $"{hashCode}{ResUI.MsgGetSubscriptionSuccessfully}");
-                        if (result?.Length < 99)
-                        {
-                            _updateFunc(false, $"{hashCode}{result}");
-                        }
-
-                        int ret = ConfigHandler.AddBatchServers(config, result, id, true);
-                        if (ret <= 0)
-                        {
-                            Logging.SaveLog("FailedImportSubscription");
-                            Logging.SaveLog(result);
-                        }
-                        _updateFunc(false,
-                            ret > 0
-                                ? $"{hashCode}{ResUI.MsgUpdateSubscriptionEnd}"
-                                : $"{hashCode}{ResUI.MsgFailedImportSubscription}");
-                    }
-                    _updateFunc(false, "-------------------------------------------------------");
+            //more url
+            if (Utils.IsNullOrEmpty(item.convertTarget) && !Utils.IsNullOrEmpty(item.moreUrl.TrimEx()))
+            {
+                if (!Utils.IsNullOrEmpty(result) && Utils.IsBase64String(result!))
+                {
+                    result = Utils.Base64Decode(result);
                 }
 
-                _updateFunc(true, $"{ResUI.MsgUpdateSubscriptionEnd}");
-                MainTask.Instance.ServerSpeedtest();
-            });
+                var lstUrl = new List<string>(item.moreUrl.TrimEx().Split(","));
+                foreach (var it in lstUrl)
+                {
+                    var url2 = Utils.GetPunycode(it);
+                    if (Utils.IsNullOrEmpty(url2))
+                    {
+                        continue;
+                    }
+
+                    var result2 = await downloadHandle.TryDownloadString(url2, blProxy, userAgent);
+                    if (blProxy && Utils.IsNullOrEmpty(result2))
+                    {
+                        result2 = await downloadHandle.TryDownloadString(url2, false, userAgent);
+                    }
+                    if (!Utils.IsNullOrEmpty(result2))
+                    {
+                        if (Utils.IsBase64String(result2!))
+                        {
+                            result += Utils.Base64Decode(result2);
+                        }
+                        else
+                        {
+                            result += result2;
+                        }
+                    }
+                }
+            }
+
+            if (Utils.IsNullOrEmpty(result))
+            {
+                _updateFunc(false, $"{hashCode}{ResUI.MsgSubscriptionDecodingFailed}");
+            }
+            else
+            {
+                _updateFunc(false, $"{hashCode}{ResUI.MsgGetSubscriptionSuccessfully}");
+                if (result?.Length < 99)
+                {
+                    _updateFunc(false, $"{hashCode}{result}");
+                }
+
+                int ret = ConfigHandler.AddBatchServers(config, result, id, true);
+                if (ret <= 0)
+                {
+                    Logging.SaveLog("FailedImportSubscription");
+                    Logging.SaveLog(result);
+                }
+                _updateFunc(false,
+                    ret > 0
+                        ? $"{hashCode}{ResUI.MsgUpdateSubscriptionEnd}"
+                        : $"{hashCode}{ResUI.MsgFailedImportSubscription}");
+            }
+            _updateFunc(false, "-------------------------------------------------------");
+                
         }
 
         public void UpdateGeoFileAll(Config config, Action<bool, string> update)

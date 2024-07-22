@@ -1,6 +1,7 @@
 ﻿using v2rayN.Models;
 using v2rayMiniConsole;
 using System.Collections.Concurrent;
+using v2rayMiniConsole.Resx;
 
 namespace v2rayN.Handler
 {
@@ -31,7 +32,7 @@ namespace v2rayN.Handler
                 }
             }
         }
-        
+
         private async Task UpdateTaskRunSubscription(Config config, Action<bool, string> update)
         {
             using (var cts = CancellationTokenSource.CreateLinkedTokenSource(MainTask.Instance.GetCancellationToken()))
@@ -39,7 +40,7 @@ namespace v2rayN.Handler
                 Logging.SaveLog("UpdateTaskRunSubscription");
 
                 var updateHandle = new UpdateHandle();
-            
+
                 while (!cts.IsCancellationRequested)
                 {
                     var updateTime = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
@@ -59,24 +60,33 @@ namespace v2rayN.Handler
                     {
                         RunningObjects.Instance.ProfileItems?.Clear();
                     }
+                    else
+                    {
+                        continue;
+                    }
+                    ConcurrentBag<Task> tasks = new ConcurrentBag<Task>();
+                    var _updateFunc = (bool success, string msg) =>
+                    {
+                        update(success, msg);
+                        if (success)
+                        {
+                            Logging.SaveLog("subscription" + msg);
+                        }
+                    };
                     foreach (var item in lstSubs)
                     {
-                        updateHandle.UpdateSubscriptionProcess(config, item.id, true, (bool success, string msg) =>
-                        {
-                            update(success, msg);
-                            if (success)
-                            {
-                                Logging.SaveLog("subscription" + msg);
-                            }
-                        });
+                        tasks.Add(Task.Run(() => updateHandle.UpdateSubscriptionProcess(config, item, true, _updateFunc)));
                         item.updateTime = updateTime;
                         ConfigHandler.AddSubItem(config, item);
 
                         await Task.Delay(5000, cts.Token);
                     }
+                    await Task.WhenAll(tasks);
+                    _updateFunc(true, $"{ResUI.MsgUpdateSubscriptionEnd}");
+                    MainTask.Instance.ServerSpeedtest();
                     await Task.Delay(60000, cts.Token);
                 }
-            }                
+            }
         }
 
         private async Task UpdateTaskRunGeo(Config config, Action<bool, string> update)
