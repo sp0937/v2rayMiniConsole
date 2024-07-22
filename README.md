@@ -6,7 +6,7 @@ The tool test the current proxy server for network delay every 30 seconds, if fo
 
 ## How to use
 - You can clone the code to your machine and compile it on yourself.
-- Later I will publish releases for direct use.
+- Later I will publish releases for direct use. And you have to download core binaries for yourself. Place the cores under folder_containing_v2rayMiniConsole.exe\bin\Xray|Singbox|..., this is all the same as using v2rayN, you can download v2rayNwithCore and copy the whole bin directory out. But **remember to update your xray core to the newest version**, for there I found some bugs when using older versions of xray.exe.
 - After starting the tool, add a valid subscription to start the tool if there are no subscriptions yet in your database. Use "add_subscription" to do that, it is poor UI but tested working. After having a valid subscription, wait for about less than 1 min, the tool will automatically update subscription, speed test, and store valid nodes into database, and surely picking the fastest node as the proxy server.
 - Here is a picture of the tool. It uses title blank as status bar, showing important running status informations, such as current connecting server, server delay, current proxy mode...
  ![image](https://github.com/user-attachments/assets/ffa05fe3-5bc9-4fee-88e8-51acceefb5cf)
