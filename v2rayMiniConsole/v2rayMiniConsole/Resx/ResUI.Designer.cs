@@ -286,7 +286,7 @@ namespace v2rayMiniConsole.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Available commands:\n\tswitch_server - Switch server\n\tshow_current_subs - Display current subscriptions\n\tadd_subscription - Add subscription\n\tremove_subscription - Remove subscription\n\tchange_proxy_mode - Change system proxy mode\n\tchange_routing - Change routing rules\n\tctrl + T - Toggle information display\n\tq - Exit the program\n\nEnter &apos;h&apos; at any time to view this help information.\n\n 的本地化字符串。
+        ///   查找类似 Available commands:\n\tswitch_server (Ctrl + S)\t\tSwitch server\n\tshow_current_subs\t\tShow current subscriptions\n\tadd_subscription\t\tAdd subscription\n\tremove_subscription\t\tRemove subscription\n\tchange_proxy_mode\t\tChange system proxy mode\n\tchange_routing\t\tChange routing rules\n\tset_language\t\tChange language\n\tctrl + T\t\tToggle information visibility\n\tq\t\tExit program\n\nType &apos;h&apos; at any time to view this help information.\n\n 的本地化字符串。
         /// </summary>
         public static string HelpInfo {
             get {

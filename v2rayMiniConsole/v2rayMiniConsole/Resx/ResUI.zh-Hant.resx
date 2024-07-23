@@ -1189,7 +1189,7 @@
     <value>打開儲存所在的位置</value>
   </data>
   <data name="HelpInfo" xml:space="preserve">
-    <value>可用命令:\n\tswitch_server - 切換伺服器\n\tshow_current_subs - 顯示當前訂閱\n\tadd_subscription - 添加訂閱\n\tremove_subscription - 移除訂閱\n\tchange_proxy_mode - 更改系統代理模式\n\tchange_routing - 更改路由規則\n\tctrl + T - 切換資訊顯示/隱藏\n\tq - 退出程式\n\n輸入'h'隨時查看此幫助資訊。\n</value>
+    <value>可用命令:\n\tswitch_server (Ctrl + S)\t\t切換伺服器\n\tshow_current_subs\t\t顯示當前訂閱\n\tadd_subscription\t\t添加訂閱\n\tremove_subscription\t\t移除訂閱\n\tchange_proxy_mode\t\t更改系統代理模式\n\tchange_routing\t\t更改路由規則\n\tset_language\t\t更改語言\n\tctrl + T\t\t切換信息顯隱\n\tq\t\t退出程序\n\n輸入'h'隨時查看此幫助信息。\n\n</value>
   </data>
   <data name="StartupInfo" xml:space="preserve">
     <value>在v2rayN基礎上做了簡單二次開發，將測速、切換節點自動化，在不穩定節點環境中最大限度避免手動幹預。請輸入'h'查看幫助資訊。</value>

@@ -1067,7 +1067,7 @@
     <value>URL спидтеста</value>
   </data>
   <data name="HelpInfo" xml:space="preserve">
-    <value>Доступные команды:\n\tswitch_server - Переключение сервера\n\tshow_current_subs - Отображение текучих подписки\n\tadd_subscription - Добавление подписки\n\tremove_subscription - Удаление подписки\n\tchange_proxy_mode - Изменение режима системного прокси\n\tchange_routing - Изменение правил маршрутизации\n\tctrl + T - Переключение видимости информации\n\tq - Выход из программы\n\nВведите 'h' в любой момент, чтобы просмотреть эту справку.\n\n</value>
+    <value>Доступные команды:\n\tswitch_server (Ctrl + S)\t\tПереключить сервер\n\tshow_current_subs\t\tПоказать текущие подписки\n\tadd_subscription\t\tДобавить подписку\n\tremove_subscription\t\tУдалить подписку\n\tchange_proxy_mode\t\tИзменить режим системы прокси\n\tchange_routing\t\tИзменить правила маршрутизации\n\tset_language\t\tИзменить язык\n\tctrl + T\t\tПереключить видимость информации\n\tq\t\tВыйти из программы\n\nЧтобы в любой момент посмотреть эту справочную информацию, введите 'h'.\n\n</value>
   </data>
   <data name="StartupInfo" xml:space="preserve">
     <value>Простая вторичная разработка была сделана на основе v2rayN для автоматизации измерения скорости и переключения узлов, чтобы максимально избежать ручного вмешательства в нестабильных средах узлов. Пожалуйста, введите «h», чтобы просмотреть справочную информацию.</value>

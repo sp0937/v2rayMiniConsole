@@ -1073,7 +1073,7 @@
     <value>Select active node (Enter)</value>
   </data>
   <data name="HelpInfo" xml:space="preserve">
-    <value>دستورات قابل استفاده:\n\tswitch_server - تغییر سرور\n\tshow_current_subs - نمایش اشتراک‌های فعلی\n\tadd_subscription - اضافه کردن اشتراک\n\tremove_subscription - حذف اشتراک\n\tchange_proxy_mode - تغییر حالت پروکسی سیستم\n\tchange_routing - تغییر قواعد مسیریابی\n\tctrl + T - تغییر نمایش/پنهان کردن اطلاعات\n\tq - خروج از برنامه\n\nبرای مشاهده این اطلاعات کمکی هر زمان وارد 'h' کنید.\n\n</value>
+    <value>دستورهای موجود:\n\thome_server (Ctrl + S)\t\tتغییر سرور\n\tshow_current_subs\t\tنمایش اشتراکات کنونی\n\tadd_subscription\t\tافزودن اشتراک\n\tremove_subscription\t\tحذف اشتراک\n\tchange_proxy_mode\t\tتغییر حالت پروکسی سیستم\n\tchange_routing\t\tتغییر قوانین مسیریابی\n\tset_language\t\tتغییر زبان\n\tctrl + T\t\tتغییر-visible اطلاعات\n\tq\t\tخروج از برنامه\n\nدر هر زمانی که می‌خواهید این اطلاعات راهنما را ببینید، 'h' را وارد کنید.\n\n</value>
   </data>
   <data name="StartupInfo" xml:space="preserve">
     <value>یک توسعه ثانویه ساده بر اساس v2rayN انجام شد تا اندازه‌گیری سرعت و تغییر گره را خودکار کند تا از مداخله دستی تا حد زیادی در محیط‌های گره ناپایدار جلوگیری شود. لطفاً برای مشاهده اطلاعات راهنما 'h' را وارد کنید.</value>

@@ -1298,7 +1298,7 @@
     <value>Select active node (Enter)</value>
   </data>
   <data name="HelpInfo" xml:space="preserve">
-    <value>Available commands:\n\tswitch_server - Switch server\n\tshow_current_subs - Display current subscriptions\n\tadd_subscription - Add subscription\n\tremove_subscription - Remove subscription\n\tchange_proxy_mode - Change system proxy mode\n\tchange_routing - Change routing rules\n\tctrl + T - Toggle information display\n\tq - Exit the program\n\nEnter 'h' at any time to view this help information.\n\n</value>
+    <value>Available commands:\n\tswitch_server (Ctrl + S)\t\tSwitch server\n\tshow_current_subs\t\tShow current subscriptions\n\tadd_subscription\t\tAdd subscription\n\tremove_subscription\t\tRemove subscription\n\tchange_proxy_mode\t\tChange system proxy mode\n\tchange_routing\t\tChange routing rules\n\tset_language\t\tChange language\n\tctrl + T\t\tToggle information visibility\n\tq\t\tExit program\n\nType 'h' at any time to view this help information.\n\n</value>
   </data>
   <data name="StartupInfo" xml:space="preserve">
     <value>A simple secondary development was done on the basis of v2rayN to automate speed measurement and node switching to avoid manual intervention to the greatest extent in unstable node environments. Please enter 'h' to view help information.</value>

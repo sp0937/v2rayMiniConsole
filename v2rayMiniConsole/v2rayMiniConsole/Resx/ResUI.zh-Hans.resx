@@ -1295,7 +1295,7 @@
     <value>设为活动节点 (Enter)</value>
   </data>
   <data name="HelpInfo" xml:space="preserve">
-    <value>可用命令:\n\tswitch_server - 切换服务器\n\tshow_current_subs - 显示当前订阅\n\tadd_subscription - 添加订阅\n\tremove_subscription - 移除订阅\n\tchange_proxy_mode - 更改系统代理模式\n\tchange_routing - 更改路由规则\n\tctrl + T - 切换信息显隐\n\tq - 退出程序\n\n输入'h'随时查看此帮助信息。\n\n</value>
+    <value>可用命令:\n\tswitch_server(Ctrl + S)\t\t切换服务器\n\tshow_current_subs\t\t显示当前订阅\n\tadd_subscription\t\t添加订阅\n\tremove_subscription\t\t移除订阅\n\tchange_proxy_mode\t\t更改系统代理模式\n\tchange_routing\t\t更改路由规则\n\tset_language\t\t更改语言\n\tctrl + T\t\t切换信息显隐\n\tq\t\t退出程序\n\n输入'h'随时查看此帮助信息。\n\n</value>
   </data>
   <data name="StartupInfo" xml:space="preserve">
     <value>在v2rayN基础上做了简单二次开发，将测速、切换节点自动化，在不稳定节点环境中最大限度避免手动干预。请输入'h'查看帮助信息。</value>

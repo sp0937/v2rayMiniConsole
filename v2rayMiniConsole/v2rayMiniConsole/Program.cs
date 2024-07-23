@@ -79,6 +79,11 @@ partial class Program
                 // Ctrl + T 被按下
                 HandleCtrlT();
             }
+            else if (keyInfo.Modifiers == ConsoleModifiers.Control && keyInfo.Key == ConsoleKey.S)
+            {
+                // Ctrl + T 被按下
+                HandleCtrlS();
+            }
             else if (!RunningObjects.Instance.IsMessageOn() && keyInfo.Key == ConsoleKey.Enter)
             {
                 // 如果是回车键，则处理之前的输入（如果有的话）
@@ -150,8 +155,13 @@ partial class Program
 
     static void HandleCtrlT()
     {
-        // 在这里处理 Ctrl+M 被按下的逻辑
+        // 在这里处理 Ctrl+T 被按下的逻辑
         RunningObjects.Instance.ToggleMessage();
+    }
+    static void HandleCtrlS()
+    {
+        // 在这里处理 Ctrl+S 被按下的逻辑
+        MainTask.Instance.SwitchServer();
     }
 }
 
