@@ -2,7 +2,14 @@ name: release
 
 on:
   push:
+    paths-ignore:
+      - 'LICENSE'
+      - '**/.*'
+      - '**/.*/**'
+      - '**/*.md'
+      
     branches: [ "main" ]
+    
 
 jobs:
   build:
